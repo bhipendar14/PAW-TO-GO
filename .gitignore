@@ -1,0 +1,24 @@
+# Ignore node_modules (already exists on install)
+node_modules/
+
+# Ignore environment variables (sensitive data)
+.env
+
+# Ignore logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore build files (if using React or Vite)
+dist/
+build/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
