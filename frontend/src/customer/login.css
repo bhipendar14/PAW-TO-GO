@@ -1,0 +1,94 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('https://plus.unsplash.com/premium_photo-1661674514856-17f29bd480b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.form {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    color: #000000;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+input:focus {
+    border-color: #2575fc;
+    outline: none;
+}
+
+.input-error {
+    border-color: #e74c3c;
+}
+
+small {
+    color: #e74c3c;
+    font-size: 0.85rem;
+}
+
+button {
+    width: 100%;
+    padding: 0.8rem;
+    background: #2575fc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #6a11cb;
+}
+
+p {
+    margin-top: 1rem;
+    text-align: center;
+    color: #000000;
+}
+
+p a {
+    color: #2575fc;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* Custom Toast Styling */
+.custom-toast {
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+}

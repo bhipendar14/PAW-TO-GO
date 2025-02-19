@@ -1,0 +1,126 @@
+/* Chat Container */
+.chat-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* User List Sidebar */
+.user-list {
+  width: 30%;
+  background: #f0f0f0;
+  padding: 15px;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+.user-list h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.user-item:hover {
+  background: #e0e0e0;
+}
+
+.user-item.selected {
+  background: #d1e7ff;
+}
+
+/* Unread Message Alert */
+.unread-dot {
+  width: 8px;
+  height: 8px;
+  background: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/* Chat Window */
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.chat-header {
+  padding: 15px;
+  background: #a85b02;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Message Bubbles */
+.message {
+  max-width: 70%;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+.sent {
+  align-self: flex-end;
+  background: #007bff;
+  color: white;
+}
+
+.received {
+  align-self: flex-start;
+  background: #e0e0e0;
+  color: black;
+}
+
+/* Input Box */
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background: #f9f9f9;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+}
+
+.chat-input button:hover {
+  background: #0056b3;
+}

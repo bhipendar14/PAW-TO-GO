@@ -1,0 +1,256 @@
+/* Cart Page Container */
+.cart-page {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  /* Product Details Section */
+  .product-details {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .product-details img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .product-details h2 {
+    margin: 10px 0;
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  .product-details .price {
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .product-details .price span {
+    color: #888;
+    font-size: 0.9em;
+  }
+  
+  .product-details .details {
+    font-size: em;
+    color: #555;
+    margin: 20px 0;
+  }
+  
+  .quantity-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .quantity-control button {
+    padding: 5px 10px;
+    font-size: 1em;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+  }
+  
+  .quantity-control button:hover {
+    background-color: #ddd;
+  }
+  
+  .quantity-control span {
+    margin: 0 10px;
+    font-size: 1.2em;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .remove-btn,
+  .buy-now-btn,
+  .shop-more-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+  }
+  
+  .remove-btn:hover {
+    background-color: #cc0000;
+  }
+  
+  .buy-now-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .buy-now-btn:hover {
+    background-color: #218838;
+  }
+  
+  .shop-more-btn {
+    background-color: #007bff;
+    color: white;
+    width: 100%;
+  }
+  
+  .shop-more-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Right Side: Address and Payment Options */
+  .right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .address-box {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.5s ease-in-out;
+  }
+  
+  .address-box h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .address-box select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  .add-address-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-address-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .add-address-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  .save-address-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .save-address-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Payment Section */
+  .payment-box {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: slideIn 0.5s ease-in-out;
+  }
+  
+  .payment-box h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .payment-box p {
+    margin: 10px 0;
+    font-size: 1em;
+    color: #555;
+  }
+  
+  .place-order-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .place-order-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }

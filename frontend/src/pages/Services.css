@@ -1,0 +1,66 @@
+.services-hero {
+    text-align: center;
+    background: url('https://images.unsplash.com/photo-1560807707-8cc77767d783') center/cover no-repeat;
+    color: white;
+    padding: 60px 20px;
+  }
+  
+  .services-hero h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+  
+  .services-hero p {
+    font-size: 18px;
+    opacity: 0.9;
+  }
+  
+  .services-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px;
+    flex-wrap: wrap;
+  }
+  
+  .service-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: 30%;
+  }
+  
+  .service-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .service-card img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .service-card h3 {
+    font-size: 22px;
+    color: #ff7b54;
+    margin-top: 10px;
+  }
+  
+  .service-card p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .services-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .service-card {
+      width: 80%;
+    }
+  }
+  

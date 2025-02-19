@@ -1,0 +1,51 @@
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .user-table th, .user-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background: #f4f4f4;
+  }
+  
+  button {
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  button:nth-child(1) {
+    background:#ff7b54;
+    color: white;
+  }
+  
+  button:nth-child(2) {
+    background: #dc3545;
+    color: white;
+  }
+  
