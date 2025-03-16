@@ -12,7 +12,7 @@ const Customer = () => {
 
   const fetchCustomers = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/customers");
+      const res = await axios.get("https://paw-to-go.onrender.com/api/customers");
       setCustomers(res.data);
     } catch (error) {
       console.error("Error fetching customers:", error);
@@ -21,7 +21,7 @@ const Customer = () => {
 
   const handleRoleChange = async (id, newRole) => {
     try {
-      await axios.put(`http://localhost:5001/api/users/${id}/role`, { role: newRole });
+      await axios.put(`https://paw-to-go.onrender.com/api/users/${id}/role`, { role: newRole });
       fetchCustomers();
     } catch (error) {
       console.error("Error updating role:", error);
@@ -31,7 +31,7 @@ const Customer = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        await axios.delete(`http://localhost:5001/api/users/${id}`);
+        await axios.delete(`https://paw-to-go.onrender.com/api/users/${id}`);
         fetchCustomers();
       } catch (error) {
         console.error("Error deleting user:", error);
