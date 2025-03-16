@@ -31,7 +31,7 @@ import EmployeeProfile from "./employee/profile";
 import Slots from "./employee/slots"; 
 
 
-import AdminHome from "./admin/Home";
+import AdminHome from "./admin/home";
 import AdminProfile from "./admin/Profile";
 import AdminEmployee from "./admin/Employee";
 import AdminCustomer from "./admin/Customer";
