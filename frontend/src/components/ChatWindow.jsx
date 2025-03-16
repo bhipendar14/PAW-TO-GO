@@ -22,7 +22,7 @@ const ChatWindow = ({ currentUser, role }) => {
     const fetchUsers = async () => {
       try {
         const endpoint = role === "employee" ? "/api/customers" : "/api/employees";
-        const response = await axios.get(`http://localhost:5001${endpoint}`);
+        const response = await axios.get(`https://paw-to-go.onrender.com${endpoint}`);
         setUsers(response.data);
       } catch (error) {
         console.error("⚠️ Error fetching users:", error);
@@ -58,7 +58,7 @@ const ChatWindow = ({ currentUser, role }) => {
     socket.emit("join_room", chatRoomId);
 
     try {
-      const response = await axios.get(`http://localhost:5001/api/chat/${chatRoomId}`);
+      const response = await axios.get(`https://paw-to-go.onrender.com/api/chat/${chatRoomId}`);
       setMessages(response.data.messages);
     } catch (error) {
       console.error("⚠️ Failed to fetch messages:", error);
