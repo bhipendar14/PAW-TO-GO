@@ -4,7 +4,7 @@ import axios from "axios";
 import "../employee/Chat.css"; // Import CSS for styling
 import Navbar from "../components/NavbarUser";
 
-const socket = io("http://localhost:5001"); // Replace with your backend URL
+const socket = io("https://paw-to-go.onrender.com"); // Replace with your backend URL
 
 const CustomerChat = ({ userId }) => {
   const [employees, setEmployees] = useState([]);
@@ -16,7 +16,7 @@ const CustomerChat = ({ userId }) => {
 
   useEffect(() => {
     // Fetch employees from backend
-    axios.get("http://localhost:5001/api/employees").then((response) => {
+    axios.get("https://paw-to-go.onrender.com/api/employees").then((response) => {
       setEmployees(response.data);
     });
 
@@ -53,7 +53,7 @@ const CustomerChat = ({ userId }) => {
     socket.emit("join_room", chatRoomId);
 
     try {
-      const response = await axios.get(`http://localhost:5001/api/chat/${chatRoomId}`);
+      const response = await axios.get(`https://paw-to-go.onrender.com/api/chat/${chatRoomId}`);
       setMessages(response.data.messages);
     } catch (error) {
       console.error("Failed to fetch messages", error);

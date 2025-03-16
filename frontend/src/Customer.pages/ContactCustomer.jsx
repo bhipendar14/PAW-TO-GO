@@ -9,7 +9,7 @@ const ContactCustomer = () => {
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    const mailtoLink = `mailto:bhipendarkumar31@gmail.com, sheetal98253@gmail.com, shreemantachauhan@gmail.com?subject=Contact Inquiry from ${name}&body=Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
+    const mailtoLink = `mailto:bhipendarkumar31@gmail.com ?subject=Contact Inquiry from ${name}&body=Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
     window.location.href = mailtoLink;
   };
 

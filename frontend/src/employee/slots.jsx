@@ -15,7 +15,7 @@ const Slots = () => {
 
   const fetchSlots = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/slots/bookings");
+      const response = await axios.get("https://paw-to-go.onrender.com/api/slots/bookings");
       setSlots(response.data);
     } catch (error) {
       toast.error("Error fetching slots");
@@ -25,7 +25,7 @@ const Slots = () => {
   // Cancel a slot (updates status instead of deleting)
   const handleCancel = async (id) => {
     try {
-      const res = await axios.put(`http://localhost:5001/api/slots/cancel/${id}`);
+      const res = await axios.put(`https://paw-to-go.onrender.com/api/slots/cancel/${id}`);
       if (res.status === 200) {
         toast.warning("Slot cancelled!");
         
@@ -39,7 +39,7 @@ const Slots = () => {
 
 const handleConfirm = async (id) => {
     try {
-        const res = await axios.put(`http://localhost:5001/api/slots/confirm/${id}`);
+        const res = await axios.put(`https://paw-to-go.onrender.com/api/slots/confirm/${id}`);
         if (res.status === 200) {
             toast.success("Slot confirmed!");
 

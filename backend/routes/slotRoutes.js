@@ -68,6 +68,30 @@ router.delete("/cancel/:slotId", async (req, res) => {
     }
 });
 
+// ✅ Confirm a Slot
+router.put("/confirm/:slotId", async (req, res) => {
+    try {
+        const { slotId } = req.params;
+
+        // Find the slot and update the status to "confirmed"
+        const updatedSlot = await Slot.findByIdAndUpdate(
+            slotId,
+            { status: "confirmed" },
+            { new: true } // Return the updated slot
+        );
+
+        if (!updatedSlot) {
+            return res.status(404).json({ message: "Slot not found" });
+        }
+
+        res.json({ message: "Slot confirmed successfully", slot: updatedSlot });
+    } catch (error) {
+        console.error("Error confirming slot:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
 // ✅ Cancel Slot (Update status instead of deleting)
 router.put("/cancel/:slotId", async (req, res) => {
     try {

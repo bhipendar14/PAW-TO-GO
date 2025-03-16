@@ -3,7 +3,7 @@ import io from "socket.io-client";
 
 export const ChatContext = createContext();
 
-const socket = io("http://localhost:5001");
+const socket = io("https://paw-to-go.onrender.com");
 
 export const ChatProvider = ({ children }) => {
     const [messages, setMessages] = useState([]);

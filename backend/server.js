@@ -48,7 +48,7 @@ app.get("/api/chat/:userId", async (req, res) => {
   }
 });
 
-
+  
 
 
 // Get all Customers (Users with role "user")
