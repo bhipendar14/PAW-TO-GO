@@ -11,7 +11,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Services from "./pages/Services";
-import Login from "./customer/Login"; 
+import Login from "./customer/login"; 
 import Register from "./customer/Register"; 
 import Product from "./pages/product";
 import CustomerHome from "./Customer.pages/CustomerHome";
