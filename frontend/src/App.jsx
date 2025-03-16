@@ -12,7 +12,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Services from "./pages/Services";
 import Login from "./customer/login"; 
-import Register from "./customer/Register"; 
+import Register from "./customer/register"; 
 import Product from "./pages/product";
 import CustomerHome from "./Customer.pages/CustomerHome";
 import MedicalTips from "./Customer.pages/MedicalTips";
