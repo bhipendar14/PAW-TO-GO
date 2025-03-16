@@ -25,6 +25,7 @@ const Register = () => {
     const validate = () => {
         const tempErrors = {};
         if (!formData.name) tempErrors.name = 'Name is required';
+        else if (!/^[a-zA-Z\s]+$/.test(formData.name)) tempErrors.name = 'Please Enter valid name';
         if (!formData.email) tempErrors.email = 'Email is required';
         else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) tempErrors.email = 'Invalid email format';
 
@@ -121,11 +122,11 @@ const Register = () => {
                         {errors.identityProof && <small>{errors.identityProof}</small>}
                     </div>
                     <div className="form-group">
-                        <label>Address</label>
+                        <label>Address (optional)</label>
                         <input type="text" name="address" value={formData.address} onChange={handleChange} />
                     </div>
                     <div className="form-group">
-                        <label>Blood Group</label>
+                        <label>Blood Group (optional)</label>
                         <input type="text" name="bloodGroup" value={formData.bloodGroup} onChange={handleChange} />
                     </div>
                     <button type="submit">Register</button>

@@ -4,7 +4,7 @@ import AdminNavbar from "./AdminNavbar";
 const Home = () => {
   
   const { theme, changeTheme } = useTheme();
-  const themes = ["white", "pink", "lightblue", "lightblue", "lightgreen", "lightyellow", "brown", "red", "gray", "silver", "gold","violet",];
+  const themes = ["white", "pink", "skyblue", "green  ", "lightblue", "lightgreen", "lightyellow", "brown", "red", "gray", "silver", "gold","violet",];
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>

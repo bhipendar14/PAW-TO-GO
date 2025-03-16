@@ -21,6 +21,9 @@ const Navbar = () => {
         <li><Link to="/servicescustomers">Services</Link></li>
         <li><Link to="/aboutcustomers">About</Link></li>
         <li><Link to="/contactcustomers">Contact</Link></li>
+        <li><Link to="/customer/chat">Chat</Link></li>
+
+        
 
       </ul>
       <div className="profile-container">

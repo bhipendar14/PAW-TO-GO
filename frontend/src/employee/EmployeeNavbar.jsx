@@ -20,7 +20,7 @@ const AdminNavbar = () => {
       <ul className="nav-links">
         <li><Link to="/employee/home" style={{ color: theme === "black" ? "white" : "black" }}>Home</Link></li>
         <li><Link to="/employee/chat" style={{ color: theme === "black" ? "white" : "black" }}>Chat</Link></li>
-        <li><Link to="/employee/slots" style={{ color: theme === "black" ? "white" : "black" }}>Sedule</Link></li>
+        <li><Link to="/employee/slots" style={{ color: theme === "black" ? "white" : "black" }}>Schedule</Link></li>
       </ul>
       
       <div className="profile-container">

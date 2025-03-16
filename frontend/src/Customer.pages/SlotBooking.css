@@ -1,70 +1,85 @@
+/* 🌟 General Container Styling */
 .slot-booking-container {
-  max-width: 400px;
+  max-width: 450px;
   margin: auto;
-  margin-top: 15px;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  padding: 25px;
+  background: linear-gradient(135deg, #ffffff, #f2f2f2);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   text-align: center;
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
+/* 🏆 Heading Styling */
 h2 {
   color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
+/* 📅 Slot Selection Styling */
 .slot-selection {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
+/* 🔤 Input Fields */
 input {
-  padding: 8px;
+  padding: 10px;
   font-size: 16px;
   border: 2px solid #ddd;
-  border-radius: 5px;
-  transition: border 0.3s;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  background: #f9f9f9;
 }
 
 input:focus {
-  border: 2px solid #4caf50;
+  border-color: #4caf50;
+  background: #fff;
   outline: none;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
 }
 
+/* 🎨 Buttons Styling */
 button {
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease-in-out;
 }
 
 .submit-btn {
-  background: #4caf50;
+  background: linear-gradient(135deg, #4caf50, #388e3c);
   color: white;
 }
 
 .cancel-btn {
-  background: #ff4444;
+  background: linear-gradient(135deg, #ff4444, #d32f2f);
   color: white;
 }
 
 .change-btn {
-  background: #ffbb33;
+  background: linear-gradient(135deg, #ffbb33, #ff9800);
   color: white;
 }
 
 button:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  filter: brightness(1.1);
 }
 
+/* ✅ Message Box Styling */
 .message-box {
   margin-top: 15px;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 8px;
   font-weight: bold;
 }
 
@@ -78,18 +93,19 @@ button:hover {
   color: white;
 }
 
-/* ✅ Notification Message Styling */
+/* 🎯 Notification Styling */
 .notification {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 12px 20px;
+  padding: 14px 22px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
   z-index: 1000;
-  animation: fadeIn 0.5s ease-in-out, fadeOut 0.5s ease-in-out 2.5s;
+  animation: fadeIn 0.5s ease-in-out, fadeOut 0.5s ease-in-out 3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .success {
@@ -102,49 +118,58 @@ button:hover {
   color: white;
 }
 
+/* 🎭 Feedback Section */
 .feedback-section {
   text-align: center;
-  padding: 50px 20px;
-  background: transparent;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
 }
 
 .feedback-section h2 {
   font-size: 30px;
   color: #333;
   margin-bottom: 30px;
+  text-transform: uppercase;
 }
 
+/* 💬 Feedback Cards */
 .feedback-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 25px;
 }
 
 .feedback-card {
   background: white;
-  padding: 20px;
+  padding: 25px;
   border-radius: 12px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
   text-align: center;
   width: 30%;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .feedback-card:hover {
   transform: scale(1.05);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .feedback-card img {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.feedback-card:hover img {
+  transform: scale(1.1);
 }
 
 .feedback-card h4 {
-  font-size: 20px;
+  font-size: 22px;
   color: #ff7b54;
   font-weight: bold;
 }
@@ -155,20 +180,30 @@ button:hover {
   margin: 5px 0;
 }
 
-/* ✅ Fade-in and fade-out animation */
+/* 🌟 Fade Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; transform: translateX(-50%) translateY(0); }
-  to { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
+  from { opacity: 0; transform: translateY(-15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-15px); }
+}
 
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .slot-booking-container {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .feedback-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feedback-card {
+    width: 90%;
+  }
+}

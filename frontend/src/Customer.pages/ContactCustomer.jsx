@@ -9,7 +9,7 @@ const ContactCustomer = () => {
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    const mailtoLink = `mailto:bhipendarkumar31@gmail.com?subject=Contact Inquiry from ${name}&body=Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
+    const mailtoLink = `mailto:bhipendarkumar31@gmail.com, sheetal98253@gmail.com, shreemantachauhan@gmail.com?subject=Contact Inquiry from ${name}&body=Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
     window.location.href = mailtoLink;
   };
 
@@ -24,9 +24,7 @@ const ContactCustomer = () => {
       <section className="contact-container">
         <div className="contact-details">
           <h2>Get In Touch</h2>
-          <p>Email: bhipendarkumar31@gmail.com</p>
-          <p>Phone: +91 8091220123</p>
-          <p>Address: Marwadi, Rajkot, Gujarat</p>
+        <p>Our Team Members will be in toch with you.<br/> All the team members are Miss Sheetal ,Miss Shreemanta, Mr Bhipendar Kumar</p>
         </div>
 
         <form className="contact-form" onSubmit={handleSendMessage}>

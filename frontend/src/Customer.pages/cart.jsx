@@ -8,20 +8,29 @@ const Cart = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState(location.state?.product || null);
   const [quantity, setQuantity] = useState(1);
-  const [address, setAddress] = useState("");
   const [addresses, setAddresses] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useState(null);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
-  const [newAddress, setNewAddress] = useState({ name: "", pin: "", city: "", state: "", country: "" });
+  const [newAddress, setNewAddress] = useState({
+    name: "",
+    pin: "",
+    city: "",
+    house: "",
+    landmark: "",
+    state: "",
+    country: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
 
+  // Fetch addresses on component mount (mock data for now)
   useEffect(() => {
-    // Fetch user addresses from backend (mock data for now)
-    const fetchAddresses = async () => {
-      const data = ["123 Main St, City, Country", "456 Elm St, Town, Country"];
-      setAddresses(data);
-      setAddress(data[0]);
-    };
-    fetchAddresses();
+    const savedAddresses = []; // Fetch from API or localStorage later
+    setAddresses(savedAddresses);
+    if (savedAddresses.length > 0) {
+      setSelectedAddress(savedAddresses[0]);
+    }
   }, []);
 
   const handleQuantityChange = (delta) => {
@@ -29,146 +38,189 @@ const Cart = () => {
   };
 
   const handleBuyNow = () => {
+    if (addresses.length === 0) {
+      alert("Please add a delivery address before proceeding.");
+      return;
+    }
     setShowPaymentOptions(true);
   };
 
   const handlePlaceOrder = (paymentMethod) => {
-    alert(`Order placed successfully using ${paymentMethod}`);
-    navigate("/");
+    setSelectedPaymentMethod(paymentMethod);
   };
 
-  const handleAddAddress = () => {
-    setShowAddAddressForm(true);
-  };
-
-  const handleSaveAddress = () => {
-    if (!newAddress.name || !newAddress.pin || !newAddress.city || !newAddress.state || !newAddress.country) {
-      alert("Please fill all address fields.");
-      return;
-    }
-    const formattedAddress = `${newAddress.name}, ${newAddress.city}, ${newAddress.state}, ${newAddress.country}, PIN: ${newAddress.pin}`;
-    setAddresses((prev) => [...prev, formattedAddress]);
-    setAddress(formattedAddress);
-    setShowAddAddressForm(false);
-    setNewAddress({ name: "", pin: "", city: "", state: "", country: "" });
+  const confirmPayment = () => {
+    alert("Order placed successfully!");
+    navigate("/homeusers");
   };
 
   const handleRemoveProduct = () => {
     setProduct(null);
-    navigate("/");
+    navigate("/homeusers");
+  };
+
+  const validateAddress = () => {
+    let newErrors = {};
+    if (!newAddress.name.trim()) newErrors.name = "Name is required";
+    if (!newAddress.pin.trim() || !/^\d{6}$/.test(newAddress.pin))
+      newErrors.pin = "Enter a valid 6-digit Pin Code";
+    if (!newAddress.city.trim()) newErrors.city = "City is required";
+    if (!newAddress.house.trim()) newErrors.house = "House number is required";
+    if (!newAddress.landmark.trim())
+      newErrors.landmark = "Landmark is required";
+    if (!newAddress.state.trim()) newErrors.state = "State is required";
+    if (!newAddress.country.trim()) newErrors.country = "Country is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleAddAddress = () => {
+    if (validateAddress()) {
+      setAddresses([...addresses, newAddress]);
+      setSelectedAddress(newAddress); // Select newly added address
+      setShowAddAddressForm(false);
+      setNewAddress({
+        name: "",
+        pin: "",
+        city: "",
+        house: "",
+        landmark: "",
+        state: "",
+        country: "",
+      });
+      setErrors({});
+    }
   };
 
   if (!product) {
-    return <div>No product selected. Please go back and add a product to the cart.</div>;
+    return (
+      <div className="cart-page">
+        <Navbar />
+        <div className="empty-cart">
+          <h2>No product selected.</h2>
+          <p>Please go back and add a product to the cart.</p>
+          <button onClick={() => navigate("/customer/product")}>
+            Shop Now
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
     <>
-    <Navbar />
-    <div className="cart-page">
-      {/* Left Side: Product Details */}
-      <div className="product-details">
-        <img src={product.image} alt={product.name} />
-        <h2>{product.name}</h2>
-        <p className="price">
-          ₹{product.price} <span>- {product.discount}% Off</span>
-        </p>
-        <p className="details">{product.details}</p>
-        <div className="quantity-control">
-          <button onClick={() => handleQuantityChange(-1)}>-</button>
-          <span>{quantity}</span>
-          <button onClick={() => handleQuantityChange(1)}>+</button>
+      <Navbar />
+      <div className="cart-page">
+        {/* Left Side: Product Details */}
+        <div className="product-details">
+          <img src={product?.image} alt={product?.name || "Product"} />
+          <h2>{product?.name}</h2>
+          <p className="price">
+            ₹{product?.price} <span>- {product?.discount}% Off</span>
+          </p>
+          <p className="details">{product?.details}</p>
+          <div className="quantity-control">
+            <button onClick={() => handleQuantityChange(-1)}>-</button>
+            <span>{quantity}</span>
+            <button onClick={() => handleQuantityChange(1)}>+</button>
+          </div>
+          <div className="action-buttons">
+            <button className="remove-btn" onClick={handleRemoveProduct}>
+              Remove
+            </button>
+            <button className="buy-now-btn" onClick={handleBuyNow}>
+              Buy Now
+            </button>
+          </div>
+          <button
+            className="shop-more-btn"
+            onClick={() => navigate("/customer/product")}
+          >
+            Shop More
+          </button>
         </div>
-        <div className="action-buttons">
-          <button className="remove-btn" onClick={handleRemoveProduct}>
-            Remove
-          </button>
-          <button className="buy-now-btn" onClick={handleBuyNow}>
-            Buy Now
-          </button>
-        </div>
-        <button className="shop-more-btn" onClick={() => navigate("/customer/product")}>
-          Shop More
-        </button>
-      </div>
 
-      {/* Right Side: Address and Payment Options */}
-      <div className="right-side">
-        {/* Address Section */}
-        <div className="address-box">
-          <h3>Delivery Address</h3>
-          <select value={address} onChange={(e) => setAddress(e.target.value)}>
-            {addresses.map((addr, index) => (
-              <option key={index} value={addr}>
-                {addr}
-              </option>
-            ))}
-          </select>
-          <button className="add-address-btn" onClick={handleAddAddress}>
-            + Add New Address
-          </button>
+        {/* Right Side: Address and Payment Options */}
+        <div className="right-side">
+          <div className="address-box">
+            <h3>Delivery Address</h3>
+            {addresses.length > 0 ? (
+              <select
+                value={JSON.stringify(selectedAddress)}
+                onChange={(e) => setSelectedAddress(JSON.parse(e.target.value))}
+              >
+                {addresses.map((addr, index) => (
+                  <option key={index} value={JSON.stringify(addr)}>
+                    {addr.name}, {addr.city}, {addr.house}, {addr.landmark},{" "}
+                    {addr.state}, {addr.pin}, {addr.country}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <p>No saved addresses. Add a new one.</p>
+            )}
+            <button
+              className="add-address-btn"
+              onClick={() => setShowAddAddressForm(!showAddAddressForm)}
+            >
+              {showAddAddressForm ? "Cancel" : "Add New Address"}
+            </button>
 
-          {/* Add Address Form */}
-          {showAddAddressForm && (
-            <div className="add-address-form">
-              <input
-                type="text"
-                placeholder="Name"
-                value={newAddress.name}
-                onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="PIN Code"
-                value={newAddress.pin}
-                onChange={(e) => setNewAddress({ ...newAddress, pin: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="City"
-                value={newAddress.city}
-                onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="State"
-                value={newAddress.state}
-                onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Country"
-                value={newAddress.country}
-                onChange={(e) => setNewAddress({ ...newAddress, country: e.target.value })}
-              />
-              <button className="save-address-btn" onClick={handleSaveAddress}>
-                Done
-              </button>
+            {showAddAddressForm && (
+              <div className="new-address-form">
+                {Object.keys(newAddress).map((field) => (
+                  <div key={field}>
+                    <input
+                      type="text"
+                      placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                      value={newAddress[field]}
+                      onChange={(e) =>
+                        setNewAddress({ ...newAddress, [field]: e.target.value })
+                      }
+                    />
+                    {errors[field] && <span className="error">{errors[field]}</span>}
+                  </div>
+                ))}
+                <button className="save-address-btn" onClick={handleAddAddress}>
+                  Save Address
+                </button>
+              </div>
+            )}
+          </div>
+
+          {showPaymentOptions && (
+            <div className="payment-box">
+              <h3>Order Summary</h3>
+              <p>
+                {product?.name} (x{quantity})
+              </p>
+              <p>
+                Total: ₹
+                {(product?.price * quantity * (1 - product?.discount / 100)).toFixed(2)}
+              </p>
+              {["UPI/QR", "Credit/ATM Card", "Cash on Delivery"].map((method) => (
+                <button key={method} className="place-order-btn" onClick={() => handlePlaceOrder(method)}>
+                  {method}
+                </button>
+              ))}
             </div>
           )}
         </div>
-
-        {/* Payment Section */}
-        {showPaymentOptions && (
-          <div className="payment-box">
-            <h3>Order Summary</h3>
-            <p>
-              {product.name} (x{quantity})
-            </p>
-            <p>Total: ₹{(product.price * quantity * (1 - product.discount / 100)).toFixed(2)}</p>
-            <button className="place-order-btn" onClick={() => handlePlaceOrder("UPI/QR")}>
-              UPI/QR
-            </button>
-            <button className="place-order-btn" onClick={() => handlePlaceOrder("Credit/ATM Card")}>
-              Credit/ATM Card
-            </button>
-            <button className="place-order-btn" onClick={() => handlePlaceOrder("Cash on Delivery")}>
-              Cash on Delivery
-            </button>
-          </div>
-        )}
       </div>
-    </div>
+
+      {/* Payment Modal */}
+      {selectedPaymentMethod && (
+        <div className="payment-modal">
+          <div className="payment-content">
+            <h3>{selectedPaymentMethod} Payment</h3>
+            {selectedPaymentMethod === "UPI/QR" && <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=kumarbhipendar2@oksbi" alt="QR Code" />}
+            {selectedPaymentMethod === "Cash on Delivery" && <p>Pay in cash when the product is delivered.</p>}
+            <button className="confirm-payment-btn" onClick={confirmPayment}>Confirm Payment</button>
+            <button className="close-payment-btn" onClick={() => setSelectedPaymentMethod(null)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
