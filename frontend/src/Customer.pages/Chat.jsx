@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import axios from "axios";
-import "../employee/Chat.css"; // Import CSS for styling
+import "../employee/chat.css"; // Import CSS for styling
 import Navbar from "../components/NavbarUser";
 
 const socket = io("https://paw-to-go.onrender.com"); // Replace with your backend URL
