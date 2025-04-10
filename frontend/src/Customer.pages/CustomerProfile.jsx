@@ -60,7 +60,7 @@ const CustomerProfile = () => {
                         <p><strong>Role:</strong> {user.role}</p>
 
                         <button className="logout-button" onClick={handleLogout}>Logout</button>
-                        <button className="talk-button" onClick={handleTalkClick}>Talk with Our Experts</button>
+                       
                     </div>
                 ) : (
                     <p>Loading user data...</p>

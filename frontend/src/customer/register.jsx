@@ -9,6 +9,56 @@ import './register.css';
 const Register = () => {
     const navigate = useNavigate(); // Initialize navigate
 
+    // Toast configuration
+    const toastConfig = {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        closeButton: false,
+        style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+        }
+    };
+
+    // Success toast configuration
+    const successToast = (message) => {
+        toast.success(message, {
+            ...toastConfig,
+            icon: "🎉",
+            style: {
+                background: '#4CAF50',
+                color: '#fff',
+                borderRadius: '10px',
+                boxShadow: '0 4px 12px rgba(76, 175, 80, 0.3)',
+                padding: '16px',
+                fontSize: '16px'
+            }
+        });
+    };
+
+    // Error toast configuration
+    const errorToast = (message) => {
+        toast.error(message, {
+            ...toastConfig,
+            icon: "😕",
+            style: {
+                background: '#f44336',
+                color: '#fff',
+                borderRadius: '10px',
+                boxShadow: '0 4px 12px rgba(244, 67, 54, 0.3)',
+                padding: '16px',
+                fontSize: '16px'
+            }
+        });
+    };
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -62,30 +112,15 @@ const Register = () => {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
-                toast.success('Registration successful! Redirecting to login...',{
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                className: "custom-toast",
-                closeButton: true,
-            });
+                successToast('Registration successful! Welcome to Paw To Go! 🐾');
 
                 // Redirect to login page after 2 seconds
                 setTimeout(() => {
                     navigate('/login');
                 }, 2000);
             } catch (error) {
-                toast.error(error.response?.data?.message || 'Registration failed',
-                    {
-                        position: "top-center",
-                        autoClose: 3000,
-                        className: "custom-toast",
-                        closeButton: true,
-                    });
+                const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
+                errorToast(errorMessage);
             }
         }
     };

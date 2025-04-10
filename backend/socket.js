@@ -1,60 +1,121 @@
-const { Server } = require("socket.io");
-const Chat = require("./models/Chat");
+const socketIo = require("socket.io");
 const Message = require("./models/Message");
 
-const setupSocket = (server) => {
-  const io = new Server(server, {
-    cors: { origin: "http://localhost:5173", methods: ["GET", "POST"] },
-  });
+let io;
 
-  io.on("connection", (socket) => {
-    console.log("🟢 User connected:", socket.id);
-
-    socket.on("join_room", (chatId) => {
-      socket.join(chatId);
-      console.log(`👤 User joined room: ${chatId}`);
+const initializeSocket = (server) => {
+    io = socketIo(server, {
+        cors: {
+            origin: "*",
+            methods: ["GET", "POST"]
+        }
     });
 
-    socket.on("send_message", async (data) => {
-      try {
-        let { chatId, senderId, receiverId, message, fileUrl } = data;
+    const userSockets = new Map(); // Store user socket mappings
 
-        // Ensure chat exists
-        if (!chatId) {
-          let chat = await Chat.findOne({ participants: { $all: [senderId, receiverId] } });
+    io.on("connection", (socket) => {
+        console.log("🟢 User connected:", socket.id);
 
-          if (!chat) {
-            chat = new Chat({ participants: [senderId, receiverId] });
-            await chat.save();
-          }
-
-          chatId = chat._id;
-        }
-
-        // Save message
-        const newMessage = new Message({
-          chatId,
-          senderId,
-          receiverId,
-          message,
-          fileUrl,
+        // Handle user connecting
+        socket.on("user_connected", ({ userId, role, name }) => {
+            console.log(`User connected with data:`, { userId, role, name });
+            
+            if (!userId) {
+                console.warn("Missing userId in user_connected event");
+                return;
+            }
+            
+            // Store user info with socket id
+            userSockets.set(userId, {
+                socketId: socket.id,
+                role,
+                name
+            });
+            
+            // Join appropriate room
+            if (role === 'employee') {
+                socket.join('employee_room');
+                console.log(`👥 Employee ${name} (${userId}) joined employee_room`);
+            } else {
+                socket.join(`user_${userId}`);
+                console.log(`👤 Customer ${name} (${userId}) joined personal room`);
+            }
         });
 
-        await newMessage.save();
+        // Handle sending messages
+        socket.on("send_message", async (data) => {
+            try {
+                console.log("Message received:", data);
+                const { senderId, senderName, receiverId, message, senderRole } = data;
 
-        // Emit message to the chat room
-        io.to(chatId.toString()).emit("receive_message", newMessage);
-      } catch (error) {
-        console.error("❌ Error saving message:", error);
-      }
+                if (!senderId || !message) {
+                    console.error("Missing required message fields");
+                    return;
+                }
+
+                // Store message in database
+                const newMessage = new Message({
+                    senderId,
+                    senderName: senderName || "Unknown",
+                    receiverId: receiverId || "all",
+                    message,
+                    senderRole: senderRole || "user",
+                    timestamp: new Date()
+                });
+                
+                await newMessage.save();
+                console.log("Message saved to database");
+
+                // Broadcast to appropriate rooms
+                if (senderRole === 'user') {
+                    // Customer message goes to all employees
+                    socket.to('employee_room').emit('receive_message', {
+                        ...data,
+                        _id: newMessage._id,
+                        clientInfo: {
+                            id: senderId,
+                            name: senderName
+                        }
+                    });
+                    console.log(`Message from customer ${senderName} sent to all employees`);
+                } else {
+                    // Employee message goes to specific customer
+                    if (receiverId && receiverId !== 'all_customers') {
+                        socket.to(`user_${receiverId}`).emit('receive_message', {
+                            ...data,
+                            _id: newMessage._id
+                        });
+                        console.log(`Message from employee ${senderName} sent to customer ${receiverId}`);
+                    } else {
+                        // Broadcast to all customer rooms if no specific customer
+                        for (const [userId, userData] of userSockets.entries()) {
+                            if (userData.role === 'user') {
+                                socket.to(`user_${userId}`).emit('receive_message', {
+                                    ...data,
+                                    _id: newMessage._id
+                                });
+                            }
+                        }
+                        console.log(`Message from employee ${senderName} broadcast to all customers`);
+                    }
+                }
+            } catch (error) {
+                console.error("❌ Error processing message:", error);
+            }
+        });
+
+        // Handle disconnection
+        socket.on("disconnect", () => {
+            // Remove user from mapping
+            for (const [userId, userData] of userSockets.entries()) {
+                if (userData.socketId === socket.id) {
+                    userSockets.delete(userId);
+                    console.log(`🔴 User disconnected: ${userData.name} (${userId})`);
+                    break;
+                }
+            }
+        });
     });
-
-    socket.on("disconnect", () => {
-      console.log("🔴 User disconnected:", socket.id);
-    });
-  });
-
-  return io;
 };
 
-module.exports = setupSocket;
+module.exports = { initializeSocket };

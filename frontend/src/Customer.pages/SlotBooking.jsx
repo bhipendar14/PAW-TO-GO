@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./SlotBooking.css";
 import Navbar from "../components/NavbarUser";
 
@@ -30,13 +30,22 @@ const SlotBooking = () => {
             return;
         }
 
+        if (!user || !user.id) {
+            showMessage("Please log in to book a slot", "error");
+            return;
+        }
+
         try {
+            console.log("Booking with user:", user);
             // Send a POST request to book the slot
             const res = await fetch("https://paw-to-go.onrender.com/api/slots/book", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     userId: user.id,  // Use the logged-in user's ID
+                    userName: user.name || "Guest User",
+                    userEmail: user.email || "No email",
+                    userAddress: user.address || "No Address",
                     schedule: `${date} at ${time}`,
                     petName,
                     ownerName,
@@ -46,16 +55,19 @@ const SlotBooking = () => {
             });
 
             const data = await res.json();
+            console.log("Booking response:", data);
+            
             if (res.ok) {
                 const bookingDetails = { date, time, petName, ownerName, petAge, phone, selectedSlot: { date, time } };
                 setSelectedSlot(bookingDetails);
                 localStorage.setItem("savedBooking", JSON.stringify(bookingDetails));  // Save booking in localStorage
                 showMessage("Slot booked successfully!", "success");
             } else {
-                showMessage(data.error, "error");
+                showMessage(data.error || "Failed to book slot", "error");
             }
-        } catch (error) {
-            showMessage("Failed to book slot!", "error");
+        } catch (bookingError) {
+            console.error("Booking error:", bookingError);
+            showMessage("Failed to book slot! Please try again later.", "error");
         }
     };
 
@@ -78,7 +90,7 @@ const SlotBooking = () => {
             <div className="slot-booking-container">
                 {message && <div className={`notification ${message.type}`}>{message.text}</div>}
                 <h2>Book Your Slot</h2>
-                <p>Welcome, {user?.name}</p>
+                <p>Welcome, {user?.name || "Guest"}</p>
 
                 {!selectedSlot ? (
                     <div className="slot-selection">

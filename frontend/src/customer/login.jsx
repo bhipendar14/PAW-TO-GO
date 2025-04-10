@@ -12,6 +12,56 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate(); // Navigation hook
 
+    // Toast configuration
+    const toastConfig = {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        closeButton: false,
+        style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+        }
+    };
+
+    // Success toast configuration
+    const successToast = (message) => {
+        toast.success(message, {
+            ...toastConfig,
+            icon: "🎉",
+            style: {
+                background: '#4CAF50',
+                color: '#fff',
+                borderRadius: '10px',
+                boxShadow: '0 4px 12px rgba(76, 175, 80, 0.3)',
+                padding: '16px',
+                fontSize: '16px'
+            }
+        });
+    };
+
+    // Error toast configuration
+    const errorToast = (message) => {
+        toast.error(message, {
+            ...toastConfig,
+            icon: "😕",
+            style: {
+                background: '#f44336',
+                color: '#fff',
+                borderRadius: '10px',
+                boxShadow: '0 4px 12px rgba(244, 67, 54, 0.3)',
+                padding: '16px',
+                fontSize: '16px'
+            }
+        });
+    };
+
     // Validation function
     const validate = () => {
         const tempErrors = {};
@@ -49,17 +99,7 @@ const Login = () => {
                 localStorage.setItem("token", token);
                 localStorage.setItem("user", JSON.stringify(user));
 
-                toast.success("Login successful!", {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    className: "custom-toast",
-                    closeButton: true,
-                });
+                successToast("Login successful! Welcome back! 🐾");
 
                 // Redirect based on role
                 if (user.role === "user") {
@@ -69,18 +109,11 @@ const Login = () => {
                 } else if (user.role === "admin") {
                     setTimeout(() => navigate("/admin/home"), 2000);
                 } else {
-                    toast.error("Invalid role detected!");
+                    errorToast("Invalid role detected!");
                 }
             } catch (error) {
-                toast.error(
-                    error.response?.data?.message || "Invalid credentials!",
-                    {
-                        position: "top-center",
-                        autoClose: 3000,
-                        className: "custom-toast",
-                        closeButton: true,
-                    });
-                
+                const errorMessage = error.response?.data?.message || "Invalid credentials";
+                errorToast(errorMessage);
             } finally {
                 setLoading(false);
             }
@@ -117,7 +150,7 @@ const Login = () => {
                         {loading ? "Logging in..." : "Login"}
                     </button>
                     <p>
-                        Don’t have an account? <Link to="/register">SignUp</Link>
+                        Don&apos;t have an account? <Link to="/register">SignUp</Link>
                     </p>
                 </form>
             </div>
