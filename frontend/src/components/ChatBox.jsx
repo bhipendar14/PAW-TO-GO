@@ -68,7 +68,7 @@ const ChatBox = ({ onClose }) => {
     // Initialize socket connection
     useEffect(() => {
         // IMPORTANT: Use the actual URL where your server is running
-        const socket = io('http://localhost:5001', {
+        const socket = io('https://paw-to-go.onrender.com', {
             transports: ['websocket', 'polling']
         });
         
@@ -108,8 +108,8 @@ const ChatBox = ({ onClose }) => {
     const fetchMessages = async () => {
         try {
             const url = user.role === 'employee'
-                ? `http://localhost:5001/api/chat/employee/${user.id}`
-                : `http://localhost:5001/api/chat/customer/${user.id}`;
+                ? `https://paw-to-go.onrender.com/api/chat/employee/${user.id}`
+                : `https://paw-to-go.onrender.com/api/chat/customer/${user.id}`;
             
             const response = await fetch(url);
             const data = await response.json();
@@ -172,7 +172,7 @@ const ChatBox = ({ onClose }) => {
             socket.emit('send_message', messageData);
             
             // Also send via REST API for redundancy
-            await fetch('http://localhost:5001/api/chat/message', {
+            await fetch('https://paw-to-go.onrender.com/api/chat/message', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(messageData)

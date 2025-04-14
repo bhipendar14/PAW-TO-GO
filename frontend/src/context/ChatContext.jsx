@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export const ChatContext = createContext();
 
-const BACKEND_URL = "http://localhost:5001";
+const BACKEND_URL = "https://paw-to-go.onrender.com";
 const socket = io(BACKEND_URL, {
   transports: ['websocket'],
   autoConnect: true,

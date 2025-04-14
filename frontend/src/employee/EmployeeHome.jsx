@@ -6,7 +6,7 @@ import axios from "axios";
 import EmployeeNavbar from "./EmployeeNavbar";
 import "./EmployeeHome.css";
 
-const BACKEND_URL = "http://localhost:5001";
+const BACKEND_URL = "https://paw-to-go.onrender.com";
 
 const EmployeeHome = () => {
   const { theme } = useTheme();

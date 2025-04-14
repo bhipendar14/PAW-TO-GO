@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const BACKEND_URL = "http://localhost:5001";
+const BACKEND_URL = "https://paw-to-go.onrender.com";
 
 const AuthContext = createContext(null);
 

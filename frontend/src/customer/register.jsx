@@ -108,7 +108,7 @@ const Register = () => {
                     formDataToSend.append(key, formData[key]);
                 });
 
-                await axios.post('http://localhost:5001/api/auth/register', formDataToSend, {
+                await axios.post('https://paw-to-go.onrender.com/api/auth/register', formDataToSend, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
