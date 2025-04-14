@@ -38,7 +38,7 @@ const SlotBooking = () => {
         try {
             console.log("Booking with user:", user);
             // Send a POST request to book the slot
-            const res = await fetch("https://paw-to-go.onrender.com/api/slots/book", {
+            const res = await fetch("http://localhost:5001/api/slots/book", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

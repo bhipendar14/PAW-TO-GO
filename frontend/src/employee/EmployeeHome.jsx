@@ -6,7 +6,7 @@ import axios from "axios";
 import EmployeeNavbar from "./EmployeeNavbar";
 import "./EmployeeHome.css";
 
-const BACKEND_URL = "https://paw-to-go.onrender.com";
+const BACKEND_URL = "http://localhost:5001";
 
 const EmployeeHome = () => {
   const { theme } = useTheme();
@@ -148,10 +148,7 @@ const EmployeeHome = () => {
                   <i className="fas fa-calendar-plus"></i>
                   Manage Schedule
                 </button>
-                <button onClick={() => handleNavigation("/employee/chat")}>
-                  <i className="fas fa-comments"></i>
-                  Customer Messages
-                </button>
+
                 <button onClick={() => handleNavigation("/employee/profile")}>
                   <i className="fas fa-user-circle"></i>
                   Profile

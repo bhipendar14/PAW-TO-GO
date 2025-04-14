@@ -24,7 +24,7 @@ const ContactCustomer = () => {
       <section className="contact-container">
         <div className="contact-details">
           <h2>Get In Touch</h2>
-        <p>Our Team Members will be in toch with you.<br/> All the team members are Miss Sheetal ,Miss Shreemanta, Mr Bhipendar Kumar</p>
+        <p>Our Team Members will be in touch with you.<br/> All the team members are Miss Sheetal ,Miss Shreemanta, Mr Bhipendar Kumar</p>
         </div>
 
         <form className="contact-form" onSubmit={handleSendMessage}>
